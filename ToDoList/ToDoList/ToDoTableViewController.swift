@@ -42,28 +42,6 @@ class ToDoTableViewController: UITableViewController{
         tableView.reloadData()
         progressBar.setProgress(progress, animated: true)
     }
-    
-    /*
-        Shows pop up to add a new item
-     */
-//    @IBAction func addTodoItem(_ sender: Any) {
-//        let addAlert = UIAlertController(title: "New Todo", message: "Enter a title", preferredStyle: .alert)
-//        addAlert.addTextField { (textfield:UITextField) in
-//            textfield.placeholder = "ToDo Item Title"
-//        }
-//        addAlert.addAction(UIAlertAction(title: "Create", style: .default, handler: { (action:UIAlertAction) in
-//            guard let title = addAlert.textFields?.first?.text else {return}
-//            let newTodo = ToDoItem(Title: title, Completed: false, CreatedAt: Date(), itemIdentifier: UUID())
-//            newTodo.saveItem()
-//            self.todoItems.append(newTodo)
-//            
-//            let indexPath = IndexPath(row: self.tableView.numberOfRows(inSection: 0), section: 0)
-//            
-//            self.tableView.insertRows(at: [indexPath], with: .automatic)
-//        }))
-//        addAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-//        self.present(addAlert, animated: true, completion: nil)
-//    }
   
     /*
         Strikethrough text style
@@ -103,25 +81,19 @@ class ToDoTableViewController: UITableViewController{
             cell.todoLabel.attributedText = strikeThroughText(todoItem.Title)
         }
         // Configure the cell...
-        if todoItem.Weight == 3 {
+        switch todoItem.Weight {
+        case 3:
             cell.todoColor.backgroundColor = .red
-        }
-        else if todoItem.Weight == 2 {
+            break
+        case 2:
             cell.todoColor.backgroundColor = .blue
-        }
-        else if todoItem.Weight == 1 {
+            break
+        case 1:
             cell.todoColor.backgroundColor = .green
-        }
-        else {
+            break
+        default:
             cell.todoColor.backgroundColor = .black
         }
-        
-//        if indexPath.row % 2 == 0 {
-//            cell.todoColor.backgroundColor = .red
-//        }
-//        else {
-//            cell.todoColor.backgroundColor = .blue
-//        }
         return cell
     }
     
@@ -130,8 +102,6 @@ class ToDoTableViewController: UITableViewController{
      */
     public override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration?
     {
-//        let important = importantAction(at: indexPath)
-//        let delete = deleteAction(at: indexPath)
         let complete = completeItem(at: indexPath)
         let delete = deleteItem(at: indexPath)
 
@@ -169,57 +139,9 @@ class ToDoTableViewController: UITableViewController{
             todoItem.deleteItem()
             self.todoItems.remove(at: indexPath.row)
             self.tableView.deleteRows(at: [indexPath], with: .automatic)
-//            self.loadData()
         }
         action.image = #imageLiteral(resourceName: "Trash")
         action.backgroundColor = UIColor(named:"mainRedColor")
         return action
     }
- 
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
