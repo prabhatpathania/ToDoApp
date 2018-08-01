@@ -121,6 +121,19 @@
                                     <action selector="saveNewItem:" destination="duO-68-2h5" eventType="touchUpInside" id="elu-6g-K6O"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oBZ-4G-pSl">
+                                <rect key="frame" x="87" y="244" width="194" height="38"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.0039601280000000003" green="0.30090761379999997" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <state key="normal" title="Save">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="saveNewItem:" destination="duO-68-2h5" eventType="touchUpInside" id="ytg-El-Vn1"/>
+                                    <segue destination="k6u-pR-SVG" kind="show" identifier="ShowItems" id="Lpb-Y5-Gdj"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="CxH-7E-zY0"/>
@@ -154,4 +167,7 @@
             <point key="canvasLocation" x="88.799999999999997" y="122.78860569715144"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="Lpb-Y5-Gdj"/>
+    </inferredMetricsTieBreakers>
 </document>

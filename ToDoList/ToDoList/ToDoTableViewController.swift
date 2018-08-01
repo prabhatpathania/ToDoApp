@@ -12,7 +12,9 @@ class ToDoTableViewController: UITableViewController{
     
     var todoItems:[ToDoItem]! {
         didSet{
-            progressBar.setProgress(progress, animated: true)
+            if progressBar != nil {
+                progressBar.setProgress(progress, animated: true)
+            }
         }
     }
     override func viewDidLoad() {
