@@ -19,6 +19,7 @@ class ToDoTableViewController: UITableViewController{
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationItem.setHidesBackButton(true, animated:true);
         loadData()
     }
     @IBOutlet weak var progressBar: UIProgressView!
