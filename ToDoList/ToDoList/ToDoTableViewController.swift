@@ -43,35 +43,35 @@ class ToDoTableViewController: UITableViewController{
         tableView.reloadData()
         progressBar.setProgress(progress, animated: true)
     }
-  
+    
     /*
-        Strikethrough text style
+     Strikethrough text style
      */
     func strikeThroughText (_ text:String) -> NSAttributedString{
         let attributeString: NSMutableAttributedString =  NSMutableAttributedString(string: text)
         attributeString.addAttribute(NSAttributedStringKey.strikethroughStyle, value: 1, range: NSMakeRange(0, attributeString.length))
         return attributeString
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
     // MARK: - Table view data source
-
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
-
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         return todoItems.count
     }
-
+    
     /*
-        1. Strike the items marked as completed
-        2. Set background colour of item category
+     1. Strike the items marked as completed
+     2. Set background colour of item category
      */
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! ToDoTableViewCell
@@ -99,22 +99,25 @@ class ToDoTableViewController: UITableViewController{
     }
     
     /*
-        Defining Row actions
+     Defining Row actions
      */
     public override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration?
     {
-        let complete = completeItem(at: indexPath)
         let delete = deleteItem(at: indexPath)
-
-        return UISwipeActionsConfiguration(actions: [delete, complete])
+        if !self.todoItems[indexPath.row].Completed {
+            let complete = completeItem(at: indexPath)
+            return UISwipeActionsConfiguration(actions: [delete, complete])
+        } else {
+            return UISwipeActionsConfiguration(actions: [delete])
+        }
     }
     
     func completeItem(at indexPath: IndexPath)-> UIContextualAction{
         let action = UIContextualAction(style: .normal, title: "Completed") { (action, view, completion) in
             completion(true)
-                var todoItem = self.todoItems[indexPath.row]
-                todoItem.markAsCompleted()
-                self.todoItems[indexPath.row]  = todoItem
+            var todoItem = self.todoItems[indexPath.row]
+            todoItem.markAsCompleted()
+            self.todoItems[indexPath.row]  = todoItem
             if let cell = self.tableView.cellForRow(at: indexPath) as? ToDoTableViewCell {
                 cell.todoLabel.attributedText = self.strikeThroughText(todoItem.Title)
                 
@@ -126,13 +129,13 @@ class ToDoTableViewController: UITableViewController{
                     }, completion: nil)
                 })
             }
-//            self.loadData()
+            //            self.loadData()
         }
         action.image = #imageLiteral(resourceName: "Check")
         action.backgroundColor = UIColor(named:"mainGreenColor")
         return action
     }
-
+    
     func deleteItem(at indexPath: IndexPath)-> UIContextualAction{
         let action = UIContextualAction(style: .normal, title: "Delete") { (action,view, completion) in
             completion(true)
