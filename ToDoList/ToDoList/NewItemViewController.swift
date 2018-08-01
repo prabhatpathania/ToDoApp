@@ -44,12 +44,14 @@ class NewItemViewController: UIViewController {
                 if urgentSwitch.isOn {
                     weight += 1
                 }
-                let newTodo = ToDoItem(Title: itemText.text!, Completed: false, CreatedAt: Date(), Weight: weight, itemIdentifier: UUID())
-                newTodo.saveItem()
-                viewController.loadData()           // to load data in todoItems
-                viewController.todoItems.append(newTodo)
-                viewController.loadData()           // to load data in todoItems & sort new item
-                viewController.tableView.reloadData()
+                if !(itemText.text?.isEmpty)! {
+                    let newTodo = ToDoItem(Title: itemText.text!, Completed: false, CreatedAt: Date(), Weight: weight, itemIdentifier: UUID())
+                    newTodo.saveItem()
+                    viewController.loadData()           // to load data in todoItems
+                    viewController.todoItems.append(newTodo)
+                    viewController.loadData()           // to load data in todoItems & sort new item
+                    viewController.tableView.reloadData()
+                }
             }
         }
     }
